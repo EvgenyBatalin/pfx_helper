@@ -1,4 +1,8 @@
 ﻿$(function () {
+	
+	var acc = $($("small.user-nav__login")[0]).html();
+	
+	
     var finalMoney = 0;
     var curMoney = 0;
 
@@ -18,6 +22,87 @@
     var newRow = $("<tr><td></td><td>Всего</td><td></td><td>" + curMoney.toFixed(2) + "</td><td><strong>" + finalMoney.toFixed(2) + "</strong></td><td></td><td></td><td></td></tr>")
     newRow.insertAfter(lastRow);
 
+	var closedInvAccsDiv = $('#w1');
+	var closedInvAccsTable = $(closedInvAccsDiv.find("table")[0]);
+	//var closedInvAccsTrs = closedInvAccsTable.find("tbody tr");
+	var tbody = $(closedInvAccsTable.find("tbody")[0]);
+	
+	chrome.storage.sync.get(acc, function (obj) {
+		
+		
+		
+		var pammsDict = {};
+		
+		if (typeof obj[acc] == 'undefined') return;
+		
+		pammsDict = obj[acc];
+		
+		for(key in pammsDict){
+			
+			
+			
+			
+			var pammObj = pammsDict[key];
+			
+			
+			var tr = tbody.find("tr[data-key='" + pammObj.invAccId + "']")[0];
+			
+			if (typeof tr != 'undefined')
+			{
+				var td = $($(tr).find("td")[0]);
+				td.append(" " + pammObj.typeShort);
+				
+			}else{
+				
+				var td = '<tr data-key="' + pammObj.invAccId + '"><td><a class="_" href="/investor/details/' + pammObj.invAccId + '">' + pammObj.invAccId + '</a> ' + pammObj.typeShort + '</td><td>' + pammObj.name + '</td><td><a class="_" href="/pamm/details/' + pammObj.pammId + '">' + pammObj.pammId + '</a></td><td></td><td></td><td></td><td></td></tr>';
+				tbody.append(td);
+				
+			}
+		
+		}
+		
+		
+		
+		
+		closedInvAccsTable.DataTable({
+			"paging":   false,
+			"info":     false,
+			bFilter: false,
+			bInfo: false,
+			"order": [[ 1, "asc" ]]
+		});
+		
+		
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     $.get("https://my.privatefx.com/accounts", function (html) {
 
@@ -44,6 +129,10 @@
         $("</br>").insertBefore(a);
         $("<a class='_' href='http://pfx.batal.ru'>pfx.batal.ru</a>").insertBefore(a);
     });
+	
+	
+	
+	
 
 
 });

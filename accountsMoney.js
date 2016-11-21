@@ -19,11 +19,11 @@
 
         var a = $("div.user-nav__log > a.btn.btn-primary.btn-sm[href$='/accounts/top_up']");
         //debugger;
-		$("</br></br>").insertBefore(a);
+		$("</br>").insertBefore(a);
         $("<strong>Результирующий 1+1</strong>").insertBefore(a);
-        $("</br></br>").insertBefore(a);
+        $("</br>").insertBefore(a);
         $("<span class='user-nav__log-date'>" + money11 + " USD</span>").insertBefore(a);
-        $("</br></br>").insertBefore(a);
+        $("</br>").insertBefore(a);
         $("<a class='_' href='http://pfx.batal.ru'>pfx.batal.ru</a>").insertBefore(a);
     });
 });
