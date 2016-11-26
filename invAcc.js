@@ -29,6 +29,9 @@ $(function () {
 	if (type == 'Счет "1+1" результирующий') 
 		typeShort = "1+1";
 	
+	if (type == 'Конкурс "Собери буквы"') 
+		typeShort = "СБ";
+	
 	var pammObj = {
 		name : name,
 		invAccId: invAccId,
@@ -46,6 +49,9 @@ $(function () {
 		{
 			pammsDict = obj[acc];
 		}
+		
+		debugger;
+		
 		pammsDict[invAccId] = pammObj;
 		
 		
@@ -53,6 +59,9 @@ $(function () {
 		storageObj[acc] = pammsDict;
 		
 		chrome.storage.sync.set(storageObj, function() {
+			
+			debugger;
+			
 		});
 	});
 });

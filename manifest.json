@@ -1,16 +1,16 @@
 {
   "name": "PrivateFX Helper by pfx.batal.ru",
-  "version": "0.5",
+  "version": "0.9",
   "description": "PrivateFX Helper by pfx.batal.ru",
   "manifest_version": 2,
   "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": [ "https://my.privatefx.com/" ],
+      "matches": [ "https://my.privatefx.com/*" ],
       "js": [ "jquery-2.1.3.min.js", "accountsMoney.js" ]
     },
     {
-      "matches": [ "https://my.privatefx.com/investor"],
+      "matches": [ "https://my.privatefx.com/investor*"],
       "js": [ "jquery-2.1.3.min.js","datatables.min.js", "pammsMoney.js" ]
     },
 	{
