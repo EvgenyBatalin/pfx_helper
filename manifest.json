@@ -1,6 +1,6 @@
 {
   "name": "PrivateFX Helper by pfx.batal.ru",
-  "version": "0.9",
+  "version": "1.1",
   "description": "PrivateFX Helper by pfx.batal.ru",
   "manifest_version": 2,
   "permissions": ["storage"],
@@ -16,6 +16,10 @@
 	{
       "matches": [ "https://my.privatefx.com/investor/details/*"],
       "js": [ "jquery-2.1.3.min.js", "invAcc.js" ]
+    },
+	{
+      "matches": [ "https://my.privatefx.com/accounts/cash_out*"],
+      "js": [ "jquery-2.1.3.min.js", "orders.js" ]
     }
 	
   ]
