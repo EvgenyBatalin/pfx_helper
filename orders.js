@@ -61,10 +61,21 @@ function getOrders(html) {
         order.Type = $($(row).find("td")[1]).html();
         order.Amount = $($(row).find("td")[2]).html().replace(/ /g, '').replace(/&nbsp;/g, '');
         var epsFull = $($(row).find("td")[3]).html();
-        order.Eps = epsFull.substr(0, epsFull.indexOf(','));
+		order.State = $($(row).find("td")[4]).html();
+		
+		if (order.Type.indexOf('Операция UAH') > 0){
+			order.Eps = 'UAH';
+		}else if (order.Type.indexOf('Операция PerfectMoney') > 0){
+			order.Eps = 'PerfectMoney';
+		}else{
+			order.Eps = epsFull.substr(0, epsFull.indexOf(','));
+		}
+		
+		if (order.Eps.indexOf('Невыполнение условий регламента программ 1+1') > 0)
+			order.Eps = order.Eps + ' Невыполнение условий регламента программ 1+1';
 
 
-        order.State = $($(row).find("td")[4]).html();
+        
         order.Created = (new Date($($(row).find("td")[5]).html())).toJSON();
         order.Updated = (new Date($($(row).find("td")[6]).html())).toJSON();
 
