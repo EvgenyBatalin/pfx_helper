@@ -63,16 +63,22 @@ function getOrders(html) {
         var epsFull = $($(row).find("td")[3]).html();
 		order.State = $($(row).find("td")[4]).html();
 		
-		if (order.Type.indexOf('Операция UAH') > 0){
+		if (order.Type.indexOf('перация UAH') > 0){
 			order.Eps = 'UAH';
-		}else if (order.Type.indexOf('Операция PerfectMoney') > 0){
+		}else if (order.Type.indexOf('перация PerfectMoney') > 0){
 			order.Eps = 'PerfectMoney';
 		}else{
 			order.Eps = epsFull.substr(0, epsFull.indexOf(','));
 		}
 		
-		if (order.Eps.indexOf('Невыполнение условий регламента программ 1+1') > 0)
-			order.Eps = order.Eps + ' Невыполнение условий регламента программ 1+1';
+		//if (epsFull.indexOf('Невыполнение условий регламента программ') > 0)
+		if (epsFull.indexOf('условий регламента программ') > 0)
+		{
+			if (order.State.indexOf('тменена') > 0)
+			{
+				order.Eps = order.Eps + ' Невыполнение условий регламента программ 1+1';
+			}
+		}
 
 
         
@@ -86,6 +92,9 @@ function getOrders(html) {
 
     //var url = 'https://localhost:44340/order/upload/';
     var url = 'https://batal.ru/order/upload/';
+	
+	//chrome.extension.getBackgroundPage().console.log(orders);
+	
     $.ajax({
             url: url,
             async: false,
