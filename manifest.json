@@ -1,6 +1,6 @@
 {
   "name": "PrivateFX Helper by pfx.batal.ru",
-  "version": "1.5",
+  "version": "1.7",
   "description": "PrivateFX Helper by pfx.batal.ru",
   "manifest_version": 2,
   "permissions": ["storage"],

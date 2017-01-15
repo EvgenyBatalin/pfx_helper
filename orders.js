@@ -5,7 +5,7 @@ $(function() {
         $("<input class='btn btn-top-up btn-primary btn-sm' type=button value='Отправить заявки на pfx.batal.ru'/>");
 
     var button2 =
-        $("<a class='btn btn-top-up btn-primary btn-sm' href='http://pfx.batal.ru/order/status'>Посмотреть отправленные заявки на pfx.batal.ru</a>");
+        $("<a class='btn btn-top-up btn-primary btn-sm' href='http://pfx.batal.ru/order/status' target='_blank'>Посмотреть отправленные заявки на pfx.batal.ru</a>");
 
     var table = $('#top-up-log');
 
@@ -13,13 +13,34 @@ $(function() {
     div.append(button2);
 
     div.insertBefore(table);
+	
+	
+	
 
     button.on("click",
         function() {
+			
+			
+			
+			
+			
+			
+			
+			
             $(button).attr('disabled', 'disabled');
+			
+			
+			$.ajax({
+                        url: "https://my.privatefx.com/accounts/cash_out?page=1",
+                        async: false,
+                        type: 'GET'
+                    })
+                    .done(function(html) {
+                        getOrders(html);
+                    });
+			
 
-
-            getOrders($(document.documentElement).html())
+            //getOrders($(document.documentElement).html())
 
             var page = $('li[class="last"] > a')[0];
             var pages = $($('li[class="last"] > a')[0]).data("page");
@@ -60,7 +81,7 @@ function getOrders(html) {
         order.Id = row.data('key');
         order.Type = $($(row).find("td")[1]).html();
         order.Amount = $($(row).find("td")[2]).html().replace(/ /g, '').replace(/&nbsp;/g, '');
-        var epsFull = $($(row).find("td")[3]).html();
+        var epsFull = $($(row).find("td")[3]).html().split('<br>').join('');
 		order.State = $($(row).find("td")[4]).html();
 		
 		if (order.Type.indexOf('перация UAH') > 0){
@@ -72,13 +93,28 @@ function getOrders(html) {
 		}
 		
 		//if (epsFull.indexOf('Невыполнение условий регламента программ') > 0)
-		if (epsFull.indexOf('условий регламента программ') > 0)
+		// if (epsFull.indexOf('условий регламента программ') > 0)
+		// {
+			// if (order.State.indexOf('тменена') > 0)
+			// {
+				// order.Eps = order.Eps + ' Невыполнение условий регламента программ 1+1';
+			// }
+		// }
+		
+		if (order.State.indexOf('тменена') > 0)
 		{
-			if (order.State.indexOf('тменена') > 0)
+			if (epsFull.indexOf(':') > 0)
 			{
-				order.Eps = order.Eps + ' Невыполнение условий регламента программ 1+1';
+				var reason = epsFull.slice(epsFull.indexOf(':'));
+				
+				if (reason.length > 3)
+				{
+					order.Eps = order.Eps + ' ' + reason;
+				}
+				
 			}
 		}
+	
 
 
         
