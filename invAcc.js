@@ -1,4 +1,6 @@
 $(function () {
+	
+	
 	var acc = $($("small.user-nav__login")[0]).html();
 	
 	
@@ -42,7 +44,7 @@ $(function () {
 	
 	
 	
-	chrome.storage.sync.get(acc, function (obj) {
+	chrome.storage.local.get(acc, function (obj) {
 		
 		var pammsDict = {};
 		if (typeof obj[acc] != 'undefined')
@@ -50,7 +52,6 @@ $(function () {
 			pammsDict = obj[acc];
 		}
 		
-		debugger;
 		
 		pammsDict[invAccId] = pammObj;
 		
@@ -58,9 +59,8 @@ $(function () {
 		var storageObj = {};
 		storageObj[acc] = pammsDict;
 		
-		chrome.storage.sync.set(storageObj, function() {
+		chrome.storage.local.set(storageObj, function() {
 			
-			debugger;
 			
 		});
 	});
